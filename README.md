@@ -1,4 +1,4 @@
-# Decision Making Layer for Belt Conveyor Damage Maintenance Based on YOLO Detection
+# 🏭 Decision Making Layer for Belt Conveyor Damage Maintenance Based on YOLO Detection
 
 Sistem pendukung keputusan tingkat keparahan kerusakan *conveyor belt* berbasis **YOLOv11** dan **Edge AI**, dengan **dashboard pemantauan real-time**. Sistem berjalan di **Raspberry Pi 5** dengan **Google Coral Edge TPU**, memakai kamera IP **Hikvision (RTSP)**, dan mengubah hasil deteksi kerusakan menjadi satu keputusan yang mudah dipahami operator: **Tidak Rusak**, **Rusak Ringan**, atau **Rusak Berat**.
 
@@ -20,11 +20,9 @@ Sistem pendukung keputusan tingkat keparahan kerusakan *conveyor belt* berbasis 
 - [Konfigurasi](#-konfigurasi)
 - [Database](#-database)
 - [Dataset dan Model](#-dataset-dan-model)
-- [Evaluasi dan Hasil](#-evaluasi-dan-hasil)
 - [Keterbatasan](#-keterbatasan)
 - [Troubleshooting](#-troubleshooting)
 - [Dokumentasi Lain](#-dokumentasi-lain)
-- [Keamanan](#-keamanan)
 - [Kredit dan Lisensi](#-kredit-dan-lisensi)
 
 ---
@@ -162,29 +160,28 @@ Rule-based mudah dijelaskan dan diaudit (setiap bobot punya makna). Regresi logi
 Decision-Making-Layer-For-Belt-Conveyor-Damage-Maintenance-Based-on-YOLO-Detection/
 ├── README.md                          # Dokumentasi utama (berkas ini)
 ├── requirements.txt                   # Dependensi Python (Raspberry Pi)
-├── .gitignore                         # Mengecualikan database, kata sandi, model besar
 │
-├──Deployment
-main_app.py                        # Program utama: kamera → deteksi → keputusan → dashboard
-├── db_severity.py                     # Modul database SQLite (sessions, detections, label)
-├── setup_roi.py                       # Alat bantu menentukan ROI secara visual
+├── deployment_and_train_model/          # Implementasikan sistem disini
+│  ├──dashboard/
+│  │  └── dashboard.html                 # Tampilan dashboard (dilayani Flask)
+│  └──train_and_calibration/             # Kalibrasi, training model, dan evaluasi
+│     ├──data_latih/
+│     │  └──conveyor_monitoring.db
+│     ├──_pychace_/
+│     │  └──db_severity.cpython-312.pyc
+│     ├──bandingkan_metode.py          # Perbandingan lengkap (Kappa, P/R/F1, MCC, McNemar)
+│     ├──db_severity.py                # Modul database SQLite (sessions, detections, label)
+│     ├──conveyor_monitoring.db        # Database training akan dikumpulkan disini
+│     ├──kalibrasi_rulebased.py        # Mencari W_R, W_N, W_C, N_MAX, TAU
+│     ├──severity_logreg.pkl           # Model hasil train_logreg.py
+│     ├──train_logreg.py               # Melatih regresi logistik → severity_logreg.pkl
+│     ├──hasil.csv                     # Hasil pengujian
+│     ├──hasil.png                     # Hasil pengujian
+│     └──main_app.py                   # Program utama: kamera → deteksi → keputusan → dashboard
 │
-├── templates/
-│   └── dashboard.html                 # Tampilan dashboard (dilayani Flask)
-│
-├── analysis/                          # Kalibrasi dan evaluasi
-│   ├── kalibrasi_rule_based.py        # Mencari W_R, W_N, W_C, N_MAX, TAU
-│   ├── train_logreg.py                # Melatih regresi logistik → severity_logreg.pkl
-│   ├── bandingkan_metode.py           # Perbandingan lengkap (Kappa, P/R/F1, MCC, McNemar)
-│   └── analisis_perbandingan.py       # Confusion matrix dan grafik untuk laporan
-│
-├── tools/                             # Alat bantu pengujian (bukan data penelitian)
-│   ├── simulator_dashboard.py         # Simulator dashboard tanpa Raspberry Pi
-│   └── generate_synthetic_db.py       # Pembuat database sintetis (latih/uji)
-│
-├── models/                            # Berkas model (lihat catatan ukuran)
+├── models/                             # Berkas model (lihat catatan ukuran)
 │   ├── best_full_integer_quant_edgetpu.tflite   # YOLOv11n INT8 Edge TPU
-│   └── severity_logreg.pkl                       # Hasil train_logreg.py
+│   └── severity_logreg.pkl                      # Model hasil train_logreg.py
 │
 ├── docs/
 │   ├── GUIDEBOOK.md                   # Panduan instalasi dan penggunaan lengkap
@@ -290,21 +287,6 @@ http://<IP-RASPBERRY-PI>:5000
 ```
 
 Letakkan `dashboard.html` di folder `templates/`.
-
-### 4. Coba tanpa Raspberry Pi (simulator)
-
-```bash
-pip install flask pillow
-python3 tools/simulator_dashboard.py --kondisi campuran --durasi 30 --putaran 300 --kecepatan 10
-```
-
-| Opsi | Arti |
-|---|---|
-| `--kondisi` | `bersih`, `ringan`, `berat`, `campuran` |
-| `--durasi` | Durasi sesi (detik) |
-| `--putaran` | Waktu satu putaran belt (detik) |
-| `--kecepatan` | Faktor percepatan simulasi |
-| `--port` | Port dashboard (bawaan 5000) |
 
 ---
 
@@ -437,24 +419,6 @@ Dataset dan pelatihan YOLO diposisikan sebagai **adopsi** dari sumber publik, bu
 
 ---
 
-## 📊 Evaluasi dan Hasil
-
-> Isi bagian ini dengan hasil **data lapangan nyata** setelah pengujian selesai. Jangan memakai data sintetis atau simulator sebagai hasil penelitian.
-
-| Metrik (data uji lapangan) | Rule-based | Regresi Logistik |
-|---|---|---|
-| Jumlah sesi uji | _isi_ | _isi_ |
-| Accuracy | _isi_ | _isi_ |
-| Precision (macro) | _isi_ | _isi_ |
-| Recall (macro) | _isi_ | _isi_ |
-| F1 (macro) | _isi_ | _isi_ |
-| Cohen's Kappa (CI 95%) | _isi_ | _isi_ |
-| MCC | _isi_ | _isi_ |
-
-Sertakan juga confusion matrix, tangkapan layar dashboard, dan hasil `bandingkan_metode.py`.
-
----
-
 ## ⚠️ Keterbatasan
 
 - Satu sesi hanya menilai **segmen belt yang terlihat**; keputusan seluruh belt bergantung pada Mode Custom Sesi dan durasi sesi yang dipilih.
@@ -491,35 +455,15 @@ Masalah umum dan solusinya ada di [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTI
 
 ---
 
-## 🔒 Keamanan
-
-- **Jangan mengunggah kata sandi kamera** ke GitHub. Gunakan variabel lingkungan atau berkas konfigurasi yang dikecualikan lewat `.gitignore`.
-- Jangan mengunggah database berisi data operasional yang sensitif.
-- Dashboard tidak memiliki autentikasi; jalankan hanya di jaringan lokal tepercaya.
-
-Contoh `.gitignore`:
-
-```
-*.db
-*.db-wal
-*.db-shm
-__pycache__/
-.env
-config_rahasia.py
-run.log
-```
-
----
-
 ## 🙏 Kredit dan Lisensi
 
 - **Lapisan deteksi dan prosedur dasar:** [wise78/Conveyor-Belt-Damage-Detection](https://github.com/wise78/Conveyor-Belt-Damage-Detection) (MIT License).
 - **Dataset:** Roboflow, workspace `cataract-detection-n5ijc`, project `conveyor-belt-damage-s60ln`, versi 5 (CC BY 4.0).
 - **YOLO:** [Ultralytics](https://github.com/ultralytics/ultralytics); periksa ketentuan lisensinya sebelum penggunaan komersial.
 - **Edge TPU:** Google Coral.
-- **Lokasi kerja praktik:** PT Indocement Tunggal Prakarsa Tbk, Site Cirebon.
+- **Lokasi penelitian:** PT Indocement Tunggal Prakarsa Tbk, Site Cirebon.
 
-**Lisensi:** tentukan lisensi repository ini (mis. MIT) dan tambahkan berkas `LICENSE`.
+**Lisensi:** MIT License -lihat berkas `LICENSE`.
 
 ---
 
