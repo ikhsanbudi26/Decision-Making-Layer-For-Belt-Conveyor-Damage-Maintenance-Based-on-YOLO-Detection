@@ -164,7 +164,8 @@ Decision-Making-Layer-For-Belt-Conveyor-Damage-Maintenance-Based-on-YOLO-Detecti
 ├── requirements.txt                   # Dependensi Python (Raspberry Pi)
 ├── .gitignore                         # Mengecualikan database, kata sandi, model besar
 │
-├── main_app.py                        # Program utama: kamera → deteksi → keputusan → dashboard
+├──Deployment
+main_app.py                        # Program utama: kamera → deteksi → keputusan → dashboard
 ├── db_severity.py                     # Modul database SQLite (sessions, detections, label)
 ├── setup_roi.py                       # Alat bantu menentukan ROI secara visual
 │
