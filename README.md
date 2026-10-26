@@ -1,4 +1,4 @@
-# 🏭 Decision Making Layer for Belt Conveyor Damage Maintenance Based on YOLO Detection
+# Decision Making Layer for Belt Conveyor Damage Maintenance Based on YOLO Detection
 
 Sistem pendukung keputusan tingkat keparahan kerusakan *conveyor belt* berbasis **YOLOv11** dan **Edge AI**, dengan **dashboard pemantauan real-time**. Sistem berjalan di **Raspberry Pi 5** dengan **Google Coral Edge TPU**, memakai kamera IP **Hikvision (RTSP)**, dan mengubah hasil deteksi kerusakan menjadi satu keputusan yang mudah dipahami operator: **Tidak Rusak**, **Rusak Ringan**, atau **Rusak Berat**.
 
