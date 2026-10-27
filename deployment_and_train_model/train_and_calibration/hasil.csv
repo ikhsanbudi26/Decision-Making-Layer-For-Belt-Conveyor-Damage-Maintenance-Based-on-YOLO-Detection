@@ -1,0 +1,15 @@
+skenario,metode,kelas,precision,recall,f1,spesifisitas,support
+SKENARIO A,Rule-Based,Tidak Rusak,0.75,0.9,0.8182,0.9571,10
+SKENARIO A,Rule-Based,Rusak Ringan,0.9655,0.8,0.875,0.9778,35
+SKENARIO A,Rule-Based,Rusak Berat,0.8718,0.9714,0.9189,0.8889,35
+SKENARIO A,Rule-Based,GLOBAL,acc=0.8875,bacc=0.8905,kappa=0.8154,mcc=0.8213,80
+SKENARIO A,Regresi Logistik,Tidak Rusak,0.75,0.9,0.8182,0.9571,10
+SKENARIO A,Regresi Logistik,Rusak Ringan,0.7632,0.8286,0.7945,0.8,35
+SKENARIO A,Regresi Logistik,Rusak Berat,0.8667,0.7429,0.8,0.9111,35
+SKENARIO A,Regresi Logistik,GLOBAL,acc=0.8000,bacc=0.8238,kappa=0.6718,mcc=0.6751,80
+SKENARIO B,Rule-Based,Rusak Ringan,1.0,0.8485,0.918,1.0,33
+SKENARIO B,Rule-Based,Rusak Berat,0.8718,1.0,0.9315,0.8485,34
+SKENARIO B,Rule-Based,GLOBAL,acc=0.9254,bacc=0.9242,kappa=0.8504,mcc=0.8601,67
+SKENARIO B,Regresi Logistik,Rusak Ringan,0.7838,0.8788,0.8286,0.7647,33
+SKENARIO B,Regresi Logistik,Rusak Berat,0.8667,0.7647,0.8125,0.8788,34
+SKENARIO B,Regresi Logistik,GLOBAL,acc=0.8209,bacc=0.8217,kappa=0.6423,mcc=0.6470,67
