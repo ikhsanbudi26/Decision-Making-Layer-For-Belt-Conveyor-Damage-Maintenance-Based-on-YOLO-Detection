@@ -198,13 +198,10 @@ Decision-Making-Layer-For-Belt-Conveyor-Damage-Maintenance-Based-on-YOLO-Detecti
 |---|---|
 | `main_app.py` | Dua proses (deteksi dan server web), tracker, sesi, mode batch, keputusan, penyimpanan database |
 | `db_severity.py` | Membuat tabel, menyimpan sesi dan deteksi, mengambil data kalibrasi, memberi label teknisi |
-| `setup_roi.py` | Menggambar ROI dengan mouse dari satu frame RTSP |
 | `templates/dashboard.html` | UI: video langsung, kategori keputusan, metrik sesi, Mode Custom Sesi, riwayat |
 | `kalibrasi_rule_based.py` | Grid search parameter rule-based dengan pemisahan 70:30 |
 | `train_logreg.py` | Melatih dan menyimpan regresi logistik |
-| `bandingkan_metode.py` | Evaluasi dua skenario (3 kelas dan biner) dengan interval kepercayaan Kappa |
-| `analisis_perbandingan.py` | Confusion matrix dan grafik perbandingan |
-| `simulator_dashboard.py` | Belt virtual untuk mencoba dashboard tanpa perangkat keras |
+| `bandingkan_metode.py` | Evaluasi dua skenario (3 kelas dan biner) dengan interval kepercayaan Kappa, Confusion matrix dan grafik perbandingan |
 
 ---
 
