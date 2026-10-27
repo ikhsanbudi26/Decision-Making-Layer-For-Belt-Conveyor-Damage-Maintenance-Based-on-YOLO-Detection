@@ -263,21 +263,13 @@ Instalasi Raspberry Pi, setup kamera RTSP, dan seluruh tahap lapisan deteksi YOL
 
 ## ▶️ Cara Menjalankan
 
-### 1. Atur konfigurasi dan ROI
-
-Edit konstanta di awal `main_app.py` (lihat [Konfigurasi](#-konfigurasi)), lalu tentukan ROI:
-
-```bash
-python3 setup_roi.py        # butuh display (desktop Pi atau ssh -X)
-```
-
-### 2. Jalankan sistem
+### 1. Jalankan sistem
 
 ```bash
 python3 main_app.py
 ```
 
-### 3. Buka dashboard
+### 2. Buka dashboard
 
 Dari perangkat lain di jaringan yang sama:
 
@@ -306,7 +298,7 @@ python3 analysis/train_logreg.py             # severity_logreg.pkl
 
 # Langkah 7
 python3 analysis/bandingkan_metode.py --db conveyor_monitoring.db \
-        --sejak "2026-10-20 00:00:00" --csv hasil.csv --grafik hasil.png
+           --csv hasil.csv --grafik hasil.png
 ```
 
 ### Prinsip metodologi
@@ -335,10 +327,10 @@ IMGSZ          = 320
 CONF_THRESHOLD = 0.25
 
 # Kamera (jangan unggah kata sandi asli)
-CAMERA_IP = "192.168.50.2"
+CAMERA_IP = "192.168.50.2"          #atau dapat dilihat melalui aplikasi HiToolsDelivery
 USERNAME  = "admin"
 PASSWORD  = "ISI_PASSWORD_KAMERA"
-CHANNEL   = "102"            # 101 = main stream, 102 = sub stream
+CHANNEL   = "102"                   # 101 = main stream, 102 = sub stream(rekomendasi)
 
 # ROI
 ENABLE_ROI      = True
