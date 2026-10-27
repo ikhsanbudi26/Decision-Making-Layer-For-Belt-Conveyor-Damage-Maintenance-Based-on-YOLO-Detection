@@ -1,0 +1,34 @@
+# =============================================================
+# requirements.txt - Raspberry Pi 5 (program utama main_app.py)
+# Python 3.9.18 (pyenv, venv "conveyor_env"), Raspberry Pi OS Bookworm
+#
+# Pasang SETELAH library sistem Edge TPU terpasang:
+#     sudo apt install -y libedgetpu1-std
+# Lalu:
+#     source ~/conveyor_env/bin/activate
+#     pip install --upgrade pip
+#     pip install -r requirements.txt
+#
+# TIDAK dimasukkan (sengaja): tensorflow, libcamera, picamera2
+#   -> proyek ini memakai tflite-runtime dan kamera IP, bukan kamera CSI.
+# =============================================================
+
+# Indeks tambahan Google Coral (sumber pycoral)
+--extra-index-url https://google-coral.github.io/py-repo/
+
+# --- Edge TPU / inferensi ---
+pycoral==2.0.0
+tflite-runtime>=2.5.0
+ultralytics==8.3.185          # dipakai main_app.py untuk memuat model YOLO (versi sama dengan repository wise78)
+
+# --- Pengolahan citra dan numerik ---
+numpy>=1.23,<2                # numpy 2.x tidak cocok dengan pycoral / Python 3.9
+opencv-python>=4.8,<4.11      # setup_roi.py butuh GUI; ganti ke opencv-python-headless bila tanpa display
+pillow>=9.5,<12               # overlay teks pada frame (PIL.ImageDraw / ImageFont)
+
+# --- Dashboard ---
+flask>=3.0,<4
+
+# --- Keputusan keparahan (regresi logistik) ---
+scikit-learn>=1.3,<1.7        # versi saat melatih dan memuat severity_logreg.pkl harus sama
+joblib>=1.3
