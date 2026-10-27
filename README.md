@@ -205,7 +205,6 @@ Decision-Making-Layer-For-Belt-Conveyor-Damage-Maintenance-Based-on-YOLO-Detecti
 | `bandingkan_metode.py` | Evaluasi dua skenario (3 kelas dan biner) dengan interval kepercayaan Kappa |
 | `analisis_perbandingan.py` | Confusion matrix dan grafik perbandingan |
 | `simulator_dashboard.py` | Belt virtual untuk mencoba dashboard tanpa perangkat keras |
-| `generate_synthetic_db.py` | Data sintetis untuk menguji program analisis |
 
 ---
 
